@@ -108,11 +108,10 @@ function cellClicked(elCell, i, j, isShown = false) {
     //model
     var isShown = true
     gBoard.isShown = isShown
-    if (elCell !== MINE) {
-        var cellChar = setMinesNegsCount(gBoard, i, j)
+    if (elCell.innerText !== MINE) {
+        var cellText = setMinesNegsCount(gBoard, i, j)
         //DOM
-        var elCell = document.querySelector(elCell.classList)
-        elCell.innerText = cellChar
-        renderBoard(gBoard, '.container')
+        elCell.innerText = cellText
     }
 }
+
