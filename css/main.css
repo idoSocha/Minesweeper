@@ -1,6 +1,7 @@
 body{
     text-align: center;
     margin: auto;
+    background-color: rgb(232, 237, 98);
 }
 h1{
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
@@ -12,6 +13,7 @@ table{
     width: 200px;
     height: 200px;
     margin: 200px auto;
+    background-color: rgb(107, 179, 223);;
 }
 tbody{
     width: 200px;

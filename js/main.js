@@ -38,7 +38,6 @@ function initGame() {
     gBoard = buildBoard()
     //DOM
     renderBoard(gBoard, '.container')
-    // console.log(setMinesNegsCount(gBoard, 2, 1))
     // console.log(gBoard)
     // console.table(gBoard)
 }
@@ -74,10 +73,11 @@ function buildBoard() {
 // }
 
 
-// createMines(gBoard)
-// function createMines(board) {
+
+
+// function createMines() {
 //     for (var i = 0; i < gLevel.MINES; i++) {
-//         createMine(board)
+//         createMine(gBoard)
 //     }
 // }
 
