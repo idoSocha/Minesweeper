@@ -49,12 +49,8 @@ function buildBoard() {
     for (var i = 0; i < board.length; i++) {
         for (var j = 0; j < board[0].length; j++) {
             board[i][j] = EMPTY
-            // createMines()
-
-            board[1][2] = MINE
-            board[0][1] = MINE
-
         }
+        createMines(board)
         return board
     }
 }
@@ -62,24 +58,25 @@ function buildBoard() {
 
 
 
-// function createMine(board) {
-//     var mine = {
-//         location: {
-//             i: getRandomIntInclusive(0, 3),
-//             j: getRandomIntInclusive(0, 3)
-//         }
-//     }
-//     board[mine.location.i][mine.location.j] = MINE
-// }
+function createMine(board) {
+    var mine = {
+        location: {
+            i: getRandomIntInclusive(0, 3),
+            j: getRandomIntInclusive(0, 3)
+        }
+    }
+
+    board[mine.location.i][mine.location.j] = MINE
+}
 
 
 
 
-// function createMines() {
-//     for (var i = 0; i < gLevel.MINES; i++) {
-//         createMine(gBoard)
-//     }
-// }
+function createMines(board) {
+    for (var i = 0; i < gLevel.MINES; i++) {
+        createMine(board)
+    }
+}
 
 
 
