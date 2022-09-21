@@ -13,19 +13,20 @@ var gBoard = [
     }
 ]
 
-var gLevel = {
+const gLevel = {
     SIZE: 4,
     MINES: 2
 }
 
-var gGame = {
+const gGame = {
     isOn: false,
     shownCount: 0,
     markedCount: 0,
     secsPassed: 0
 }
 
-// gTimer
+var gTime
+var gTimeInterval
 
 
 
@@ -37,6 +38,7 @@ function initGame() {
     //model
     gBoard = buildBoard()
     //DOM
+    stopTime()
     renderBoard(gBoard, '.container')
 }
 
@@ -88,9 +90,11 @@ function setMinesNegsCount(board, rowIdx, colIdx) {
 
 function cellClicked(elCell, i, j, isShown = false) {
     //model
+    gGame.isOn = true
     var isShown = true
     gBoard.isShown = isShown
     if (elCell.innerText !== MINE) {
+        startTime()
         var cellText = setMinesNegsCount(gBoard, i, j)
         if (cellText)
             //DOM
@@ -98,3 +102,15 @@ function cellClicked(elCell, i, j, isShown = false) {
     }
 }
 
+function startTime() {
+    gTime = Date.now()
+    gTimeInterval = setInterval(timeNow, 1000);
+}
+function timeNow() {
+    var currTime = Date.now() - gTime
+    gGame.secsPassed = (currTime / 1000).toFixed(0)
+    document.querySelector('.time h3 span').innerText = gGame.secsPassed
+}
+function stopTime() {
+    clearInterval(gTimeInterval)
+}
