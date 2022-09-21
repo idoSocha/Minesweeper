@@ -1,4 +1,4 @@
-
+'use strict'
 ////model////
 
 const MINE = '💣'
@@ -38,8 +38,6 @@ function initGame() {
     gBoard = buildBoard()
     //DOM
     renderBoard(gBoard, '.container')
-    // console.log(gBoard)
-    // console.table(gBoard)
 }
 
 
@@ -56,8 +54,6 @@ function buildBoard() {
 }
 
 
-
-
 function createMine(board) {
     var mine = {
         location: {
@@ -69,22 +65,11 @@ function createMine(board) {
     board[mine.location.i][mine.location.j] = MINE
 }
 
-
-
-
 function createMines(board) {
     for (var i = 0; i < gLevel.MINES; i++) {
         createMine(board)
     }
 }
-
-
-
-
-
-
-
-
 
 // checks for mines that are negs of normal cells
 function setMinesNegsCount(board, rowIdx, colIdx) {
