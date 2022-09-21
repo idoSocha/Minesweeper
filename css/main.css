@@ -1,0 +1,30 @@
+body{
+    text-align: center;
+    margin: auto;
+}
+h1{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-style: italic;
+    font-size: 40px;
+    color: rgb(107, 179, 223);
+}
+table{
+    width: 200px;
+    height: 200px;
+    margin: 200px auto;
+}
+tbody{
+    width: 200px;
+    height: 200pxx;
+    border: 1px solid black;
+}
+
+td{
+    width: 25px;
+    height: 25px;
+    border: 1px solid black;
+}
+
+td:hover{
+    cursor: pointer;
+}
