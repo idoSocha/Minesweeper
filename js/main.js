@@ -52,7 +52,7 @@ function buildBoard() {
             board[i][j] = EMPTY
             // createMines()
 
-            board[3][2] = MINE
+            board[1][2] = MINE
             board[0][1] = MINE
 
         }
@@ -110,8 +110,9 @@ function cellClicked(elCell, i, j, isShown = false) {
     gBoard.isShown = isShown
     if (elCell.innerText !== MINE) {
         var cellText = setMinesNegsCount(gBoard, i, j)
-        //DOM
-        elCell.innerText = cellText
+        if (cellText)
+            //DOM
+            elCell.innerText = cellText
     }
 }
 
