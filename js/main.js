@@ -32,7 +32,6 @@ var gTimeInterval
 
 
 
-
 // functions////
 
 function initGame() {
@@ -93,20 +92,30 @@ function setMinesNegsCount(board, rowIdx, colIdx) {
 
 function cellClicked(elCell, event, i, j, isShown = false) {
     //model
+    if (!gGame.isOn) {
+        startTime()
+    }
     gGame.isOn = true
     var isShown = true
-    if (event.which === 3) {
-        elCell.addEventListener("contextmenu", e => e.preventDefault())
-        elCell.classList.toggle('flag')
-        elCell.innerText = FLAG
-    }
     gBoard.isShown = isShown
-    if (elCell.innerText !== MINE) {
-        startTime()
-        var cellText = setMinesNegsCount(gBoard, i, j)
-        if (cellText)
-            //DOM
-            elCell.innerText = cellText
+    if (event.which === 3) {
+        window.addEventListener("contextmenu", e => e.preventDefault())
+        var flagged = elCell.classList.toggle('flag')
+        elCell.innerText = FLAG
+        gGame.markedCount++
+        if (!flagged) {
+            gGame.markedCount--
+            gGame.markedCount--
+        }
+        console.log(gGame.markedCount);
+    }
+    if (event.which === 1) {
+        if (elCell.innerText !== MINE) {
+            var cellText = setMinesNegsCount(gBoard, i, j)
+            if (cellText)
+                //DOM
+                elCell.innerText = cellText
+        }
     }
 
 }
