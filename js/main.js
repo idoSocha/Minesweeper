@@ -38,7 +38,7 @@ function initGame() {
     //model
     gBoard = buildBoard()
     //DOM
-    stopTime()
+    // stopTime()
     renderBoard(gBoard, '.container')
 
 }
@@ -96,29 +96,40 @@ function cellClicked(elCell, event, i, j, isShown = false) {
         startTime()
     }
     gGame.isOn = true
-    var isShown = true
-    gBoard.isShown = isShown
+
+
     if (event.which === 3) {
         window.addEventListener("contextmenu", e => e.preventDefault())
         var flagged = elCell.classList.toggle('flag')
-        elCell.innerText = FLAG
-        gGame.markedCount++
-        if (!flagged) {
-            gGame.markedCount--
-            gGame.markedCount--
+        if (flagged) {
+            gBoard.isMarked = true
+            elCell.innerText = FLAG
+            gGame.markedCount++
         }
+        else if (!flagged && elCell.innerText === MINE) {
+            elCell.innerText = MINE
+            gGame.markedCount--
+            gBoard.isMarked = false
+        }
+        else if (!flagged) {
+            elCell.innerText = EMPTY
+            gGame.markedCount--
+            gBoard.isMarked = false
+        }
+
         console.log(gGame.markedCount);
     }
     if (event.which === 1) {
-        if (elCell.innerText !== MINE) {
-            var cellText = setMinesNegsCount(gBoard, i, j)
-            if (cellText)
-                //DOM
-                elCell.innerText = cellText
-        }
+        var isShown = true
+        gBoard.isShown = isShown
+        var cellText = setMinesNegsCount(gBoard, i, j)
+        if (cellText)
+            //DOM
+            elCell.innerText = cellText
     }
-
 }
+
+
 
 function startTime() {
     gTime = Date.now()
