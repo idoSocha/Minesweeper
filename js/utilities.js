@@ -4,7 +4,9 @@ function createMat(ROWS, COLS) {
     for (var i = 0; i < ROWS; i++) {
         var row = []
         for (var j = 0; j < COLS; j++) {
-            row.push('')
+            var currCell = [i][j]
+            currCell = gCell
+            row.push(currCell)
         }
         mat.push(row)
     }
@@ -17,10 +19,10 @@ function createMat(ROWS, COLS) {
 function renderBoard(mat, selector) {
 
     var strHTML = '<table border="0"><tbody>'
-    for (var i = 0; i < mat.length; i++) {
+    for (var i = 0; i < gLevel.SIZE; i++) {
 
         strHTML += '<tr>'
-        for (var j = 0; j < mat[0].length; j++) {
+        for (var j = 0; j < gLevel.SIZE; j++) {
 
             const cell = mat[i][j]
             const className = 'cell cell-' + i + '-' + j

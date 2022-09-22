@@ -5,14 +5,14 @@ const MINE = '💣'
 const EMPTY = ' '
 const FLAG = '⛳'
 
-var gBoard = [
-    {
-        minesAroundCount: 4,
-        isShown: true,
-        isMine: false,
-        isMarked: true
-    }
-]
+var gCell =
+{
+    // every cell in the mat should contain this object
+    minesAroundCount: 4,
+    isShown: true,
+    isMine: false,
+    isMarked: true
+}
 
 const gLevel = {
     SIZE: 4,
@@ -21,11 +21,11 @@ const gLevel = {
 
 const gGame = {
     isOn: false,
-    shownCount: 0,
-    markedCount: 0,
+    shownCount: 0, // how many cells are opened
+    markedCount: 0, //how many flagged cells
     secsPassed: 0
 }
-
+var gBoard
 var gTime
 var gTimeInterval
 
@@ -36,23 +36,25 @@ var gTimeInterval
 
 function initGame() {
     //model
-    gBoard = buildBoard()
+    gBoard = createMat(gLevel.SIZE, gLevel.SIZE)
+    console.table(gBoard)
+    console.log(gBoard)
     //DOM
     // stopTime()
-    renderBoard(gBoard, '.container')
-
+    renderBoard(buildBoard(gBoard), '.container')
 }
 
 
 
-function buildBoard() {
-    var board = createMat(gLevel.SIZE, gLevel.SIZE)
+function buildBoard(board) {
+    var newBoard = []
     for (var i = 0; i < board.length; i++) {
-        for (var j = 0; j < board[0].length; j++) {
-            board[i][j] = EMPTY
+        var curRow = board[i]
+        for (var j = 0; j < curRow.length; j++) {
+            curRow[i][j] = EMPTY
+            newBoard.push(board[i][j])
         }
-        createMines(board)
-        return board
+        return newBoard
     }
 }
 
@@ -102,26 +104,26 @@ function cellClicked(elCell, event, i, j, isShown = false) {
         window.addEventListener("contextmenu", e => e.preventDefault())
         var flagged = elCell.classList.toggle('flag')
         if (flagged) {
-            gBoard.isMarked = true
+            gCell.isMarked = true
             elCell.innerText = FLAG
             gGame.markedCount++
         }
         else if (!flagged && elCell.innerText === MINE) {
             elCell.innerText = MINE
             gGame.markedCount--
-            gBoard.isMarked = false
+            gCell.isMarked = false
         }
         else if (!flagged) {
             elCell.innerText = EMPTY
             gGame.markedCount--
-            gBoard.isMarked = false
+            gCell.isMarked = false
         }
 
         console.log(gGame.markedCount);
     }
     if (event.which === 1) {
         var isShown = true
-        gBoard.isShown = isShown
+        gCell.isShown = isShown
         var cellText = setMinesNegsCount(gBoard, i, j)
         if (cellText)
             //DOM
