@@ -24,7 +24,7 @@ function renderBoard(mat, selector) {
 
             const cell = mat[i][j]
             const className = 'cell cell-' + i + '-' + j
-            strHTML += `<td onclick = "cellClicked(this,${i},${j})" class="${className}">${cell}</td>`
+            strHTML += `<td onmousedown = "cellClicked(this,event,${i},${j})" class="${className}">${cell}</td>`
         }
         strHTML += '</tr>'
     }

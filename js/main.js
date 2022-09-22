@@ -3,6 +3,7 @@
 
 const MINE = '💣'
 const EMPTY = ' '
+const FLAG = '⛳'
 
 var gBoard = [
     {
@@ -40,6 +41,7 @@ function initGame() {
     //DOM
     stopTime()
     renderBoard(gBoard, '.container')
+
 }
 
 
@@ -88,10 +90,16 @@ function setMinesNegsCount(board, rowIdx, colIdx) {
 }
 
 
-function cellClicked(elCell, i, j, isShown = false) {
+
+function cellClicked(elCell, event, i, j, isShown = false) {
     //model
     gGame.isOn = true
     var isShown = true
+    if (event.which === 3) {
+        elCell.addEventListener("contextmenu", e => e.preventDefault())
+        elCell.classList.toggle('flag')
+        elCell.innerText = FLAG
+    }
     gBoard.isShown = isShown
     if (elCell.innerText !== MINE) {
         startTime()
@@ -100,6 +108,7 @@ function cellClicked(elCell, i, j, isShown = false) {
             //DOM
             elCell.innerText = cellText
     }
+
 }
 
 function startTime() {
