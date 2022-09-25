@@ -7,7 +7,6 @@ const FLAG = '⛳'
 
 var gCell =
 {
-    // every cell in the mat should contain this object
     minesAroundCount: 4,
     isShown: true,
     isMine: false,
@@ -25,6 +24,7 @@ const gGame = {
     markedCount: 0, //how many flagged cells
     secsPassed: 0
 }
+
 var gBoard
 var gTime
 var gTimeInterval
@@ -34,28 +34,29 @@ var gTimeInterval
 
 // functions////
 
-function initGame() {
-    //model
-    gBoard = createMat(gLevel.SIZE, gLevel.SIZE)
+function initGame(size = gLevel.SIZE) {
+    //model 
+    gBoard = createMat(size, size)
     console.table(gBoard)
     console.log(gBoard)
+    buildBoard(gBoard)
     //DOM
     // stopTime()
-    renderBoard(buildBoard(gBoard), '.container')
+    renderBoard(gBoard, '.container')
 }
-
 
 
 function buildBoard(board) {
     var newBoard = []
     for (var i = 0; i < board.length; i++) {
-        var curRow = board[i]
-        for (var j = 0; j < curRow.length; j++) {
-            curRow[i][j] = EMPTY
-            newBoard.push(board[i][j])
+        for (var j = 0; j < board.length; j++) {
+            board[i][j] = EMPTY
         }
-        return newBoard
+
+        newBoard.push(board[i][j])
     }
+    newBoard.push(createMines(board))
+    return newBoard
 }
 
 
@@ -66,7 +67,7 @@ function createMine(board) {
             j: getRandomIntInclusive(0, 3)
         }
     }
-
+    gCell.isMarked = true
     board[mine.location.i][mine.location.j] = MINE
 }
 
@@ -78,13 +79,12 @@ function createMines(board) {
 
 // checks for mines that are negs of normal cells
 function setMinesNegsCount(board, rowIdx, colIdx) {
-    var minesAroundCount = 0
     for (var i = rowIdx - 1; i <= rowIdx + 1; i++) {
         if (i < 0 || i >= board.length) continue
         for (var j = colIdx - 1; j <= colIdx + 1; j++) {
             if (j < 0 || j >= board[0].length) continue
             var currCell = board[i][j]
-            if (currCell === MINE) minesAroundCount++
+            if (currCell === MINE) currCell.minesAroundCount++
         }
     }
     return minesAroundCount
